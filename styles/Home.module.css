@@ -1,0 +1,11 @@
+.card span {
+  display: inline-block;
+  transition: transform 200ms;
+}
+
+/* Enable hover only on non-touch devices */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover span {
+    transform: translateX(4px);
+  }
+}

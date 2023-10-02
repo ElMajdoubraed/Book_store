@@ -1,0 +1,26 @@
+{
+  "user": [
+    {
+      "id": "header.orders",
+      "route": "/~/orders"
+    },
+    {
+      "id": "header.cart",
+      "route": "/~/cart"
+    }
+  ],
+  "admin": [
+    {
+      "id": "header.dashboard",
+      "route": "/admin/dashboard"
+    },
+    {
+      "id": "header.addBook",
+      "route": "/admin/book/create"
+    },
+    {
+      "id": "header.categories",
+      "route": "/admin/category"
+    }
+  ]
+}
