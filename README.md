@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ar" dir="rtl">
   <head>
     <meta charset="UTF-8" />
@@ -189,6 +190,64 @@
               </details>
             </li>
           </ul>
+        </div>
+        <div class="mt-5">
+          <h4>طريقة استخدام وتعديل المنتج.</h4>
+          <ol class="list-group list-group-numbered">
+            <li class="list-group-item">
+              <p>
+                بعد تحميل المنتج و تنزيل كافة المتطلبات الاساسية يجب تثبيت
+                الحوازم اللازمة لتشغيل المنتج
+                <br />
+                <code>npm install --legacy-peer-deps </code>
+              </p>
+            </li>
+            <li class="list-group-item">
+              <p>
+                انشاء ملف .env في مجلد المنتج و يجب تعديله بمعلومات الاتصال
+                بقاعدة البيانات و Aws S3 و الحوازم الأخرى المطلوبة لتشغيل المنتج
+                و يمكنك الاطلاع على ملف .env.sample لمعرفة الحوازم
+              </p>
+            </li>
+            <li class="list-group-item">
+              <p>
+                بعد تثبيت الحوازم اللازمة و تعديل ملف .env يمكنك تجربة المنتج
+                على الخادم المحلي
+                <br />
+                <code>npm run dev</code>
+              </p>
+            </li>
+            <li class="list-group-item">
+              <p>
+                بعد تعديل المنتج و تجربته على الخادم المحلي يجب رفعه على Github
+                <br />
+                <code>git init</code>
+                <br />
+                <code>git add .</code>
+                <br />
+                <code>git commit -m "first commit"</code>
+                <br />
+                <code>git branch -M main</code>
+                <br />
+                <code>git remote add origin ...</code>
+                <br />
+                <code> git push -u origin main </code>
+                <br />
+                <a href="https://docs.github.com/en/get-started"
+                  >المزيد من المعلومات عن Github</a
+                >
+              </p>
+            </li>
+            <li class="list-group-item">
+              <p>
+                بعد رفع المنتج على Github يجب رفعه على Vercel
+                <br />
+                <a href="https://vercel.com/docs/git" target="_blank"
+                  >المزيد من المعلومات عن رفع المنتج على Vercel</a
+                >
+              </p>
+            </li>
+          </ol>
         </div>
         <footer dir="auto" class="mt-5">
           <p class="text-muted">
