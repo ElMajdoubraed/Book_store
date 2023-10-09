@@ -91,7 +91,7 @@ export default function GetOrders() {
         cover: item.book.cover,
         quantity: item.quantity,
       };
-      filtred.push(...filtred, obj);
+      filtred.push(obj);
     });
     setOrders(filtred);
   };

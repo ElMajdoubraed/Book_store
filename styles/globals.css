@@ -74,7 +74,6 @@ input::after {
 /* table styling */
 
 table {
-  justify-content: center;
   width: 100%;
   border-collapse: collapse;
   border-radius: 0.5rem;
@@ -83,7 +82,13 @@ table {
 table tr th,
 table tr td {
   padding: 0.5rem;
-  text-align: center;
+  text-align: right !important;
+  padding-right: 40px !important;
+}
+
+tr th:last-child,
+tr td:last-child {
+  text-align: left !important;
 }
 
 thead {

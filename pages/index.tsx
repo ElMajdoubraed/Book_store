@@ -2,15 +2,15 @@ import { useState, useEffect } from "react";
 import { DropDownCategories } from "@/components/category";
 import { TextInput } from "@/components/inputs";
 import { PageLayout } from "@/layouts";
-import { Grid, Stack, Divider } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 import Head from "next/head";
 import { CircularLoading as Loading } from "@/components/loading";
 import { NoData } from "@/components/empty";
 import { map } from "lodash";
 import { BookCard } from "@/components/cards";
-import { Pagination } from "@material-ui/lab";
+import { Alert, AlertTitle, Pagination } from "@material-ui/lab";
 import CartButton from "@/components/button";
-import { Typography, Button, ButtonGroup } from "@material-ui/core";
+import { Typography, Button } from "@material-ui/core";
 import axios from "axios";
 import styled from "styled-components";
 import { useRouter } from "next/router";
@@ -26,18 +26,6 @@ interface Book {
 }
 
 const SearchTimeOut = 0; // 0 ms
-
-const buttons = [
-  <Button variant="outlined" key="one">
-    18
-  </Button>,
-  <Button variant="outlined" key="two">
-    9
-  </Button>,
-  <Button variant="outlined" key="three">
-    6
-  </Button>,
-];
 
 const AnimatedTypography = styled(Typography)`
   color: #29221f !important;
@@ -61,14 +49,13 @@ const AnimatedTypography = styled(Typography)`
 `;
 
 export default function Home() {
+  const isPreview = process.env.NEXT_PUBLIC_ISPREVIEW === "true";
   const [books, setBooks] = useState<Book[]>();
   const [category, setCategory] = useState<string>("");
   const [pages, setPages] = useState<number>(1);
   const [page, setPage] = useState<number>(1);
   const [search, setSearch] = useState<string>("");
   const [fetch, setFetch] = useState<boolean>(false);
-  const [fetchedTimes, setFetchedTimes] = useState<number>(0);
-  const [limit, setLimit] = useState<number>(9);
 
   const router = useRouter();
 
@@ -98,18 +85,9 @@ export default function Home() {
     setFetch(!fetch);
   };
 
-  const handleLimitChange = (currentLimit: number) => {
-    if (limit === currentLimit) return;
-    setPage(1);
-    setBooks(undefined);
-    setLimit(currentLimit);
-    setFetch(!fetch);
-  };
   useEffect(() => {
     axios
-      .get(
-        `/api/book/main/?page=${page}&category=${category}&search=${search}&limit=${limit}`
-      )
+      .get(`/api/book/main/?page=${page}&category=${category}&search=${search}`)
       .then((res) => {
         setBooks(res.data?.books);
         setPages(res.data?.pages);
@@ -118,7 +96,6 @@ export default function Home() {
           query: {
             page,
             search,
-            limit,
           },
         });
       })
@@ -130,7 +107,6 @@ export default function Home() {
             query: {
               page,
               search,
-              limit,
               reload: 2,
             },
           });
@@ -159,6 +135,14 @@ export default function Home() {
         >
           مرحبا بك في مكتبتك الخاصة
         </AnimatedTypography>
+        {isPreview && (
+          <Alert severity="warning" style={{ marginBottom: "2rem" }}>
+            <AlertTitle>
+              <strong>تنبيه</strong>
+            </AlertTitle>
+            الصور للعرض فقط ولن يحصل عليها العميل مع الملفات.
+          </Alert>
+        )}
         <Grid container spacing={4}>
           <Grid item xs={12} md={9}>
             <TextInput label="البحث عن كتاب" onChange={handleSearch} />
@@ -182,33 +166,28 @@ export default function Home() {
             <NoData />
           )}
         </Grid>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="flex-start"
-          marginTop={10}
-          spacing={2}
-        >
-          <ButtonGroup
-            onClick={(e: any) => handleLimitChange(Number(e.target.innerText))}
-          >
-            {buttons}
-          </ButtonGroup>
-          <Pagination
-            dir="ltr"
-            onChange={(e, i) => {
-              handlePageChange(e, i);
-              console.log(page);
-            }}
-            count={pages}
-            defaultPage={page}
-            page={page}
-            shape="rounded"
-            color="primary"
-          />
-        </Stack>
       </PageLayout>
-
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "2rem",
+        }}
+      >
+        <Pagination
+          onChange={(e, i) => {
+            handlePageChange(e, i);
+          }}
+          count={pages}
+          defaultPage={page}
+          page={page}
+          siblingCount={0}
+          shape="rounded"
+          color="primary"
+          showFirstButton
+          showLastButton
+        />
+      </Box>
       <CartButton />
     </>
   );
