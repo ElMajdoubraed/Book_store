@@ -70,18 +70,6 @@ jobs:
           NEXT_PUBLIC_AWS_BUCKET_NAME: s3hsoub-finale-raed-elmajdoub
           NEXT_PUBLIC_S3_UPLOAD_URL: https://s3hsoub-finale-raed-elmajdoub.s3.amazonaws.com
           NEXT_PUBLIC_ISPREVIEW: true
-      - name: Static HTML export with Next.js
-        run: ${{ steps.detect-package-manager.outputs.runner }} next export
-        env:
-          NODE_OPTIONS: --max-old-space-size=4096
-          NODE_ENV: production
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          MONGODB_URI: ${{ secrets.MONGODB_URI }}
-          EMAIL_ADDRESS: raed@elmajdoub.live
-          NEXT_PUBLIC_APP_URL: https://books.elmajdoub.live
-          NEXT_PUBLIC_AWS_BUCKET_NAME: s3hsoub-finale-raed-elmajdoub
-          NEXT_PUBLIC_S3_UPLOAD_URL: https://s3hsoub-finale-raed-elmajdoub.s3.amazonaws.com
-          NEXT_PUBLIC_ISPREVIEW: true
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
