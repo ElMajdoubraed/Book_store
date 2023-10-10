@@ -47,7 +47,11 @@ schema.statics.paginate = async function ({
     .limit(limit)
     .skip(skip)
     .sort({ createdAt: sort })
-    .populate("category", "name")
+    .populate({
+      path: "category",
+      select: "name",
+      model: Category,
+    })
     .exec();
 
   const pages = Math.ceil((await this.count({ ...where }).exec()) / limit);

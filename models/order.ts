@@ -60,15 +60,4 @@ schema.set("toJSON", {
   virtuals: true,
 });
 
-schema.statics.getOrders = async function (userId: string) {
-  const orders = await this.find({
-    user: userId,
-    variant: "pending",
-  })
-    .populate("items.book", "title price cover")
-    .exec();
-
-  return orders;
-};
-
 export default mongoose.models.Order || mongoose.model("Order", schema);

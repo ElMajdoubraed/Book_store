@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import Book from "@/models/book";
 import dbConnect from "@/utils/dbConnect";
+import Category from "@/models/category";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   await dbConnect();
@@ -14,6 +15,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         }).populate({
           path: "category",
           select: "name",
+          model: Category,
         });
         res.status(200).json(book);
       } catch (error) {

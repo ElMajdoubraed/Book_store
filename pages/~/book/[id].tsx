@@ -1,5 +1,5 @@
 import { PageLayout } from "@/layouts";
-import { Grid, Box } from "@mui/material";
+import { Grid, Box, Stack } from "@mui/material";
 import Head from "next/head";
 import useAuth from "@/hooks/useAuth";
 import { Typography, Button } from "@material-ui/core";
@@ -107,21 +107,7 @@ export default function BookPage() {
           container
           spacing={2}
         >
-          <Grid
-            item
-            sx={{
-              marginBottom: 5.5,
-            }}
-            xs={12}
-            md={6}
-          >
-            <img
-              className="book__cover"
-              src={uploadUrl + "/" + bookDetails.cover}
-              alt="book cover"
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={12}>
             <Typography
               style={{
                 marginBottom: 40,
@@ -131,16 +117,40 @@ export default function BookPage() {
             >
               {bookDetails.title}
             </Typography>
-            <Typography className="mb-5">
-              اسم المؤلف : {bookDetails.author}
-            </Typography>
-            <Typography className="mb-5">
-              التصنيف: {bookDetails.category?.name}
-            </Typography>
-            <Typography className="mb-5">السعر: {bookDetails.price}</Typography>
-            <div className="book__story mb-5">
-              <Typography>{bookDetails.story}</Typography>
-            </div>
+          </Grid>
+          <Grid
+            item
+            sx={{
+              marginBottom: 5.5,
+            }}
+            xs={12}
+            md={12}
+          >
+            <Stack direction="row" spacing={2}>
+              <div className="spacing">
+                <img
+                  className="book__cover"
+                  src={uploadUrl + "/" + bookDetails.cover}
+                  alt={bookDetails.title}
+                />
+              </div>
+              <div>
+                <Typography className="mb-5">
+                  اسم المؤلف: {bookDetails.author}
+                </Typography>
+                <Typography className="mb-5">
+                  التصنيف: {bookDetails.category?.name}
+                </Typography>
+                <Typography className="mb-5">
+                  السعر: {bookDetails.price}
+                </Typography>
+                <div className="book__story mb-5">
+                  <Typography>{bookDetails.story}</Typography>
+                </div>
+              </div>
+            </Stack>
+          </Grid>
+          <Grid item xs={12}>
             {user?.role === "admin" ? (
               <>
                 <Box sx={{ flexGrow: 1 }}>
@@ -175,7 +185,6 @@ export default function BookPage() {
                 onClick={handleOrder}
                 style={{
                   marginBottom: 40,
-                  marginTop: 40,
                 }}
                 variant="contained"
                 color="primary"

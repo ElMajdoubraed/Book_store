@@ -30,17 +30,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         res.status(400).json({ success: false, error });
       }
       break;
-    case "GET":
-      try {
-        const books = await Book.find({}).populate({
-          path: "category",
-          select: "name",
-        });
-        res.status(200).json(books);
-      } catch (error) {
-        res.status(400).json({ success: false, error });
-      }
-      break;
     default:
       res.status(405).json({ success: false, message: "Method not allowed" });
       break;

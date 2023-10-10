@@ -2,6 +2,8 @@ import auth from "@/utils/auth";
 import type { NextApiRequest, NextApiResponse } from "next";
 import Order from "@/models/order";
 import dbConnect from "@/utils/dbConnect";
+import Book from "@/models/book";
+import User from "@/models/user";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   await dbConnect();
@@ -19,7 +21,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const orders = await Order.find({
           variant: { $regex: status, $options: "i" },
         })
-          .populate("orderBy", "name")
+          .populate({
+            path: "orderBy",
+            select: "name",
+            model: User,
+          })
           .sort({ createdAt: -1 })
           .exec();
         res.status(201).json(orders);
@@ -43,11 +49,20 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const order = await Order.findOne({
           _id: id,
         })
-          .populate("items.book", "title price cover")
-          .populate("orderBy", "name")
+          .populate({
+            path: "items.book",
+            select: "title price cover",
+            model: Book,
+          })
+          .populate({
+            path: "orderBy",
+            select: "name",
+            model: User,
+          })
           .exec();
         res.status(201).json(order);
       } catch (error) {
+        console.error("Error get order : ", error);
         res.status(400).json({ success: false, error });
       }
       break;

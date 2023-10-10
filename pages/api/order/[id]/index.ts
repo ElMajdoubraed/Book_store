@@ -2,6 +2,7 @@ import auth from "@/utils/auth";
 import type { NextApiRequest, NextApiResponse } from "next";
 import Order from "@/models/order";
 import dbConnect from "@/utils/dbConnect";
+import Book from "@/models/book";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   await dbConnect();
@@ -13,7 +14,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const order = await Order.findOne({
           _id: req.query.id,
         })
-          .populate("items.book", "title price cover")
+          .populate({
+            path: "items.book",
+            select: "title price cover",
+            model: Book,
+          })
           .exec();
         if (isAdmin || order.orderBy == user.id)
           return res.status(200).json(order);

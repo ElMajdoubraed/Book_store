@@ -2,6 +2,7 @@ import auth from "@/utils/auth";
 import type { NextApiRequest, NextApiResponse } from "next";
 import Book from "@/models/book";
 import dbConnect from "@/utils/dbConnect";
+import Category from "@/models/category";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   await dbConnect();
@@ -48,7 +49,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const books = await Book.find({
           category: id,
         })
-          .populate("category", "name")
+          .populate({
+            path: "category",
+            select: "name",
+            model: Category,
+          })
           .sort({
             createdAt: -1,
           });
