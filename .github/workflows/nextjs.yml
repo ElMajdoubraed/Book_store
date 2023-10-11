@@ -65,6 +65,14 @@ jobs:
           NODE_ENV: production
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          EMAIL_APP_PASSWORD: ${{ secrets.EMAIL_APP_PASSWORD }}
+          NEXT_PUBLIC_RECAPTCHA_KEY: ${{ secrets.NEXT_PUBLIC_RECAPTCHA_KEY }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          NEXT_PUBLIC_AWS_ACCESS_KEY_ID: ${{ secrets.NEXT_PUBLIC_AWS_ACCESS_KEY_ID }}
+          NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY: ${{ secrets.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY }}
+          NEXT_PUBLIC_GOOGLE_ANALYTICS: G-818X7G152J
+          NEXT_PUBLIC_GOOGLE_TAG_MANAGER: GTM-TK3H5GL8
           EMAIL_ADDRESS: raed@elmajdoub.live
           NEXT_PUBLIC_APP_URL: https://books.elmajdoub.live
           NEXT_PUBLIC_AWS_BUCKET_NAME: s3hsoub-finale-raed-elmajdoub
@@ -72,6 +80,24 @@ jobs:
           NEXT_PUBLIC_ISPREVIEW: true
       - name: Static HTML export with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next export
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096
+          NODE_ENV: production
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          EMAIL_APP_PASSWORD: ${{ secrets.EMAIL_APP_PASSWORD }}
+          NEXT_PUBLIC_RECAPTCHA_KEY: ${{ secrets.NEXT_PUBLIC_RECAPTCHA_KEY }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          NEXT_PUBLIC_AWS_ACCESS_KEY_ID: ${{ secrets.NEXT_PUBLIC_AWS_ACCESS_KEY_ID }}
+          NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY: ${{ secrets.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY }}
+          NEXT_PUBLIC_GOOGLE_ANALYTICS: G-818X7G152J
+          NEXT_PUBLIC_GOOGLE_TAG_MANAGER: GTM-TK3H5GL8
+          EMAIL_ADDRESS: raed@elmajdoub.live
+          NEXT_PUBLIC_APP_URL: https://books.elmajdoub.live
+          NEXT_PUBLIC_AWS_BUCKET_NAME: s3hsoub-finale-raed-elmajdoub
+          NEXT_PUBLIC_S3_UPLOAD_URL: https://s3hsoub-finale-raed-elmajdoub.s3.amazonaws.com
+          NEXT_PUBLIC_ISPREVIEW: true
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
