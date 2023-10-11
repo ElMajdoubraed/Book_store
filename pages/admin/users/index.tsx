@@ -80,7 +80,7 @@ export default function UsersPage({ users }: { users: UserProps[] }) {
   );
 }
 
-export const getServerSideProps = async (ctx: any) => {
+export const getStaticProps = async (ctx: any) => {
   await dbConnect();
   const users = await User.find(
     {},

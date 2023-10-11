@@ -2,7 +2,7 @@ import { PageLayout } from "@/layouts";
 import { Grid, Box, Stack } from "@mui/material";
 import Head from "next/head";
 import useAuth from "@/hooks/useAuth";
-import { Typography, Button } from "@material-ui/core";
+import { Typography, Button, IconButton } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import NotFound from "@/pages/404";
 import { CircularLoading as Loading } from "@/components/loading";
@@ -10,6 +10,9 @@ import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { message } from "antd";
+import styled from "styled-components";
+import { DeleteIcon, EditIcon } from "@/components/icons";
+import { CardTravel } from "@mui/icons-material";
 
 interface BookDetails {
   _id: string | number | null;
@@ -22,6 +25,13 @@ interface BookDetails {
   author?: string;
   cover?: string;
 }
+
+const BookButton = styled(Button)`
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+  width: 100%;
+`;
 
 export default function BookPage() {
   const router = useRouter();
@@ -107,26 +117,39 @@ export default function BookPage() {
           container
           spacing={2}
         >
-          <Grid item xs={12} md={12}>
+          <Grid item xs={9} md={9}>
             <Typography
               style={{
                 marginBottom: 40,
               }}
-              color="secondary"
+              color="primary"
               variant="h5"
             >
-              {bookDetails.title}
+              {bookDetails.title}{" "}
+              {user?.role === "admin" && (
+                <>
+                  <IconButton>
+                    <Link href={`/admin/book/${id}`}>
+                      <EditIcon size={20} fill="#c45e4c" />
+                    </Link>
+                  </IconButton>
+                  <IconButton onClick={handleDelete}>
+                    <DeleteIcon size={20} fill="#81322a" />
+                  </IconButton>
+                </>
+              )}
             </Typography>
           </Grid>
+          <Grid item xs={3} md={3}></Grid>
           <Grid
             item
             sx={{
-              marginBottom: 5.5,
+              marginBottom: 2.5,
             }}
             xs={12}
             md={12}
           >
-            <Stack direction="row" spacing={2}>
+            <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
               <div className="spacing">
                 <img
                   className="book__cover"
@@ -150,38 +173,10 @@ export default function BookPage() {
               </div>
             </Stack>
           </Grid>
-          <Grid item xs={12}>
-            {user?.role === "admin" ? (
-              <>
-                <Box sx={{ flexGrow: 1 }}>
-                  <Link href={`/admin/book/${id}`}>
-                    <Button
-                      style={{
-                        marginTop: 40,
-                      }}
-                      variant="contained"
-                      fullWidth
-                      color="primary"
-                    >
-                      تعديل
-                    </Button>
-                  </Link>
-                </Box>
-                <Button
-                  onClick={handleDelete}
-                  style={{
-                    marginBottom: 40,
-                    marginTop: 10,
-                  }}
-                  variant="outlined"
-                  fullWidth
-                  color="secondary"
-                >
-                  حذف
-                </Button>
-              </>
-            ) : (
-              <Button
+          <Grid item xs={12} md={6}></Grid>
+          <Grid item xs={12} md={6}>
+            {user?.role === "user" && (
+              <BookButton
                 onClick={handleOrder}
                 style={{
                   marginBottom: 40,
@@ -190,7 +185,7 @@ export default function BookPage() {
                 color="primary"
               >
                 اضافة الى السلة
-              </Button>
+              </BookButton>
             )}
           </Grid>
         </Grid>
