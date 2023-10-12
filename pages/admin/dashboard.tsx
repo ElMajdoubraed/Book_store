@@ -119,7 +119,7 @@ export default function DashboardPage({
   );
 }
 
-export const getStaticProps = async (ctx: any) => {
+export const getServerSideProps = async (ctx: any) => {
   await dbConnect();
   const usersCount = await User.count();
   const ordersCount = await Order.count();
