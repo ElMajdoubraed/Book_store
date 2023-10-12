@@ -61,10 +61,10 @@ export default function Register() {
   return (
     <>
       <Head>
-        <title>حساب جديد - كتبي</title>
+        <title>حساب جديد - كواكب</title>
         <meta
           name="description"
-          content="قم بتسجيل حسابك في كتبي وابدأ في إنشاء قائمة الطعام الخاصة بك على الإنترنت."
+          content="قم بتسجيل حسابك في كواكب وابدأ في إنشاء قائمة الطعام الخاصة بك على الإنترنت."
         />
       </Head>
       <AuthLayout>

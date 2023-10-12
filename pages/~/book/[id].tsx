@@ -1,18 +1,17 @@
+import React from "react";
 import { PageLayout } from "@/layouts";
-import { Grid, Box, Stack } from "@mui/material";
+import { Grid, Stack } from "@mui/material";
 import Head from "next/head";
 import useAuth from "@/hooks/useAuth";
 import { Typography, Button, IconButton } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import NotFound from "@/pages/404";
 import { CircularLoading as Loading } from "@/components/loading";
-import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { message } from "antd";
 import styled from "styled-components";
 import { DeleteIcon, EditIcon } from "@/components/icons";
-import { CardTravel } from "@mui/icons-material";
 
 interface BookDetails {
   _id: string | number | null;
@@ -107,7 +106,7 @@ export default function BookPage() {
   return (
     <>
       <Head>
-        <title>معطيات الكتاب - كتبي</title>
+        <title>معطيات الكتاب - كواكب</title>
       </Head>
       <PageLayout title="header.book">
         <Grid
@@ -127,16 +126,14 @@ export default function BookPage() {
             >
               {bookDetails.title}{" "}
               {user?.role === "admin" && (
-                <>
-                  <IconButton>
-                    <Link href={`/admin/book/${id}`}>
-                      <EditIcon size={20} fill="#c45e4c" />
-                    </Link>
+                <React.Fragment>
+                  <IconButton onClick={() => router.push(`/admin/book/${id}`)}>
+                    <EditIcon size={20} fill="#c45e4c" />
                   </IconButton>
                   <IconButton onClick={handleDelete}>
                     <DeleteIcon size={20} fill="#81322a" />
                   </IconButton>
-                </>
+                </React.Fragment>
               )}
             </Typography>
           </Grid>

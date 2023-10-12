@@ -52,10 +52,10 @@ export default function Login() {
   return (
     <>
       <Head>
-        <title>تسجيل الدخول - كتبي</title>
+        <title>تسجيل الدخول - كواكب</title>
         <meta
           name="description"
-          content="قم بتسجيل الدخول إلى حسابك في كتبي وابدأ في إنشاء قائمة الطعام الخاصة بك على الإنترنت."
+          content="قم بتسجيل الدخول إلى حسابك في كواكب وابدأ في إنشاء قائمة الطعام الخاصة بك على الإنترنت."
         />
       </Head>
       <AuthLayout>

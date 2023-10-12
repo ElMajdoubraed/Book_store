@@ -32,7 +32,7 @@ export default function DashboardPage({
   return (
     <>
       <Head>
-        <title>لوحة التحكم - كتبي</title>
+        <title>لوحة التحكم - كواكب</title>
       </Head>
       <PageLayout title="header.dashboard">
         <Grid container spacing={2}>

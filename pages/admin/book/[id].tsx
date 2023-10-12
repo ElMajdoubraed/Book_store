@@ -47,7 +47,7 @@ export default function BookUpdatePage() {
   return (
     <>
       <Head>
-        <title>تعديل كتاب - كتبي</title>
+        <title>تعديل كتاب - كواكب</title>
       </Head>
       <PageLayout title="header.updateBook">
         <form onSubmit={handleUpdate}>

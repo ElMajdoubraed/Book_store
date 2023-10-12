@@ -6,7 +6,7 @@ export default function Error() {
   return (
     <>
       <Head>
-        <title>خطأ في الخادم الداخلي - كتبي</title>
+        <title>خطأ في الخادم الداخلي - كواكب</title>
         <meta
           name="description"
           content="واجه الخادم حالة غير متوقعة منعته من تلبية الطلب الرجاء المحاولة مرة

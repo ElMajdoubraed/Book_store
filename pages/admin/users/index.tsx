@@ -39,7 +39,7 @@ export default function UsersPage({ users }: { users: UserProps[] }) {
   return (
     <>
       <Head>
-        <title>قائمة المستخدمين - كتبي</title>
+        <title>قائمة المستخدمين - كواكب</title>
       </Head>
       <PageLayout title="header.users">
         <Grid container spacing={2}>

@@ -8,5 +8,5 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  res.status(200).json({ message: "كتبي - Api" });
+  res.status(200).json({ message: "كواكب - Api" });
 }

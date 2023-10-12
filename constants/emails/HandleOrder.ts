@@ -2,7 +2,7 @@ const EmailTemplate = (link: string) => {
   return `
 <div style="background-color: #f1f1f1; padding: 2rem; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; " dir="auto">
     <div style="margin: auto;">
-        <h1 style="color: #29221f">كتبي - تم تأكيد الطلب</h1>
+        <h1 style="color: #29221f">كواكب - تم تأكيد الطلب</h1>
         <div style="margin-bottom: 2rem">
         <p style="font-size: large; margin-bottom: 4rem; color: #81322a;">
             لقد تلقيت هذا البريد الإلكتروني لأنك قمت بتأكيد طلبك لشراء كتاب من موقعنا.
@@ -38,12 +38,12 @@ const EmailTemplate = (link: string) => {
         <div style="margin-top: 2rem">
             <b>اتمنى لك يوم جيد !</b>
         </div>
-        <small style="color: #a38579">فريق كتبي.</small>
+        <small style="color: #a38579">فريق كواكب.</small>
         </div>
     </div>
 </div>
 `;
 };
-const EmailSubject = "كتبي - تم تأكيد الطلب";
+const EmailSubject = "كواكب - تم تأكيد الطلب";
 
 export { EmailSubject, EmailTemplate };

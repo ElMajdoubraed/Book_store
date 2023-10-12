@@ -5,7 +5,7 @@ export function CircularLoading() {
   return (
     <>
       <Head>
-        <title>جاري التحميل - كتبي</title>
+        <title>جاري التحميل - كواكب</title>
       </Head>
       <Box
         sx={{

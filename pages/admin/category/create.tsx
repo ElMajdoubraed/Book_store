@@ -36,7 +36,7 @@ export default function CreateCategory() {
   return (
     <>
       <Head>
-        <title>إنشاء تصنيف - كتبي</title>
+        <title>إنشاء تصنيف - كواكب</title>
       </Head>
       <PageLayout title="header.createCategory">
         <form onSubmit={handleSubmit}>

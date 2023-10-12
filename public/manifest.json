@@ -4,9 +4,9 @@
   "display": "fullscreen",
   "scope": "/",
   "start_url": "/",
-  "name": "كتبي",
-  "short_name": "كتبي",
-  "description": "كتبي",
+  "name": "كواكب",
+  "short_name": "كواكب",
+  "description": "كواكب",
   "icons": [
     {
       "src": "/icon-192x192.png",

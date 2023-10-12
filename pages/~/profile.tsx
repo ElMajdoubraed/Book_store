@@ -91,8 +91,8 @@ export default function Profile() {
   return (
     <PageLayout title="title.profile">
       <Head>
-        <title>تعديل الملف الشخصي - كتبي</title>
-        <meta name="description" content="قم بتحديث ملفك الشخصي في كتبي." />
+        <title>تعديل الملف الشخصي - كواكب</title>
+        <meta name="description" content="قم بتحديث ملفك الشخصي في كواكب." />
       </Head>
 
       <Grid container spacing={4}>
