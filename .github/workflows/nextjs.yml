@@ -99,7 +99,7 @@ jobs:
       #     NEXT_PUBLIC_S3_UPLOAD_URL: https://s3hsoub-finale-raed-elmajdoub.s3.amazonaws.com
       #     NEXT_PUBLIC_ISPREVIEW: true
       - name: Copy readme
-        run: cp README.md out/README.md
+        run: mkdir out && cp README.md out/README.md
       - name: Upload Readme
         uses: actions/upload-pages-artifact@v2
         with:
