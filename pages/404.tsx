@@ -6,7 +6,7 @@ export default function NotFound() {
   return (
     <>
       <Head>
-        <title>الصفحة غير موجودة - كتبي</title>
+        <title>الصفحة غير موجودة - كواكب</title>
         <meta
           name="description"
           content="للأسف لم نتمكن من العثور على الصفحة التي طلبتها. ما رأيك أن تجرب البحث بالموقع؟"

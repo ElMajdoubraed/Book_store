@@ -6,7 +6,7 @@ export default function Error() {
   return (
     <>
       <Head>
-        <title>حدث خطأ ما - كتبي</title>
+        <title>حدث خطأ ما - كواكب</title>
         <meta
           name="description"
           content="حدث خطأ ما، يرجى المحاولة مرة أخرى."

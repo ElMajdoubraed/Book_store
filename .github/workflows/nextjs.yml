@@ -2,7 +2,7 @@ name: Deploy Next.js site to Pages
 
 on:
   push:
-    branches: ["pages"]
+    branches: ["main", "pages", "prod"]
 
   workflow_dispatch:
 
@@ -16,6 +16,18 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  #Test job
+  test:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: https://github.com/ElMajdoubraed/Book_store/blob/main/README.md
+    steps:
+      - name: Check if readme exist
+        run: ls & if test -f "README.md"; then echo "README.md not found"; exit 1; fi
+      - name: Check if readme is not empty
+        run: if [ -s "README.md" ]; then echo "README.md is empty"; exit 1; fi
+
   # Build job
   build:
     runs-on: ubuntu-latest
@@ -56,26 +68,20 @@ jobs:
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
-      - name: Install dependencies
-        run: npm install --legacy-peer-deps
-      - name: Build with Next.js
-        run: ${{ steps.detect-package-manager.outputs.runner }} next build
-        env:
-          NODE_OPTIONS: --max-old-space-size=4096
-          NODE_ENV: production
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          MONGODB_URI: ${{ secrets.MONGODB_URI }}
-          EMAIL_ADDRESS: raed@elmajdoub.live
-          NEXT_PUBLIC_APP_URL: https://books.elmajdoub.live
-          NEXT_PUBLIC_AWS_BUCKET_NAME: s3hsoub-finale-raed-elmajdoub
-          NEXT_PUBLIC_S3_UPLOAD_URL: https://s3hsoub-finale-raed-elmajdoub.s3.amazonaws.com
-          NEXT_PUBLIC_ISPREVIEW: true
-      - name: Static HTML export with Next.js
-        run: ${{ steps.detect-package-manager.outputs.runner }} next export
-      - name: Upload artifact
+      - name: Copy readme
+        run: mkdir out && cp README.md out/index.html
+      - name: Upload Readme
         uses: actions/upload-pages-artifact@v2
         with:
           path: ./out
+
+  #Check job
+  check:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout
+        run: if [! -d "$out" ]; then mkdir out; fi
 
   # Deployment job
   deploy:
@@ -88,3 +94,11 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
+
+  # Cleanup job
+  cleanup:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: Cleanup
+        run: rm -rf out

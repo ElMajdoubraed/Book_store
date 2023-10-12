@@ -73,7 +73,7 @@ export default function CreateCategory() {
   return (
     <>
       <Head>
-        <title>الطلبات - كتبي</title>
+        <title>الطلبات - كواكب</title>
       </Head>
       <PageLayout title="header.orders">
         <>

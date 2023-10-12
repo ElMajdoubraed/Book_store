@@ -55,10 +55,10 @@ export default function Register() {
   return (
     <>
       <Head>
-        <title>نسيت كلمة المرور - كتبي</title>
+        <title>نسيت كلمة المرور - كواكب</title>
         <meta
           name="description"
-          content="قم بإعادة تعيين كلمة المرور الخاصة بك في كتبي."
+          content="قم بإعادة تعيين كلمة المرور الخاصة بك في كواكب."
         />
       </Head>
       <AuthLayout>

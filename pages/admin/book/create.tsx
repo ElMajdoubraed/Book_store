@@ -64,7 +64,7 @@ export default function BookCreatePage() {
   return (
     <>
       <Head>
-        <title>إضافة كتاب جديد - كتبي</title>
+        <title>إضافة كتاب جديد - كواكب</title>
       </Head>
       <PageLayout title="header.addBook">
         <form onSubmit={handleSubmit}>

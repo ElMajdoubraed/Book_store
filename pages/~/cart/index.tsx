@@ -125,8 +125,8 @@ export default function Cart() {
   return (
     <>
       <Head>
-        <title>الطلبات - كتبي</title>
-        <meta name="description" content="الطلبات - كتبي" />
+        <title>الطلبات - كواكب</title>
+        <meta name="description" content="الطلبات - كواكب" />
       </Head>
       <PageLayout title="header.cart">
         <>

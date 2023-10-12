@@ -60,7 +60,7 @@ export default function AdminCategory() {
   return (
     <>
       <Head>
-        <title>كتبي - مكتبة الكترونية لبيع الكتب العربية والانجليزية</title>
+        <title>كواكب - مكتبة الكترونية لبيع الكتب العربية والانجليزية</title>
       </Head>
       <PageLayout title="header.category">
         <Grid container spacing={2}>

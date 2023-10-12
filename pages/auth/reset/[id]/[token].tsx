@@ -91,10 +91,10 @@ export default function Reset() {
   return (
     <>
       <Head>
-        <title>إعادة تعيين كلمة المرور - كتبي</title>
+        <title>إعادة تعيين كلمة المرور - كواكب</title>
         <meta
           name="description"
-          content="قم بإعادة تعيين كلمة المرور الخاصة بك في كتبي."
+          content="قم بإعادة تعيين كلمة المرور الخاصة بك في كواكب."
         />
       </Head>
       <AuthLayout>

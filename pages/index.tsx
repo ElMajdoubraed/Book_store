@@ -117,7 +117,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>كتبي - مكتبة الكترونية لبيع الكتب العربية والانجليزية</title>
+        <title>كواكب - مكتبة الكترونية لبيع الكتب العربية والانجليزية</title>
         <meta
           name="description"
           content="مكتبة الكترونية لبيع الكتب العربية والانجليزية"

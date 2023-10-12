@@ -20,7 +20,7 @@ export default function AuthBackgroundPattern() {
           marginBottom: "3rem",
         }}
       >
-        مرحبا بك في كتبي
+        مرحبا بك في كواكب
       </Typography>
       <Typography
         component={"span"}
