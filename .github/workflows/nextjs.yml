@@ -24,9 +24,9 @@ jobs:
       url: https://github.com/ElMajdoubraed/Book_store/blob/main/README.md
     steps:
       - name: Check if readme exist
-        run: if ! test -f "README.md"; then echo "README.md not found"; exit 1; fi
+        run: ls & if test -f "README.md"; then echo "README.md not found"; exit 1; fi
       - name: Check if readme is not empty
-        run: if [ ! -s "README.md" ]; then echo "README.md is empty"; exit 1; fi
+        run: if [ -s "README.md" ]; then echo "README.md is empty"; exit 1; fi
 
   # Build job
   build:
