@@ -23,6 +23,7 @@ interface Book {
   cover: string;
   author?: string;
   category?: string;
+  forsell?: boolean;
 }
 
 const SearchTimeOut = 0; // 0 ms
@@ -56,6 +57,7 @@ export default function Home() {
   const [page, setPage] = useState<number>(1);
   const [search, setSearch] = useState<string>("");
   const [fetch, setFetch] = useState<boolean>(false);
+  const [localUser, setLocalUser] = useState<any>();
 
   const router = useRouter();
 
@@ -86,6 +88,11 @@ export default function Home() {
   };
 
   useEffect(() => {
+    let localUserFromStorage = localStorage.getItem("user");
+    localUserFromStorage
+      ? (localUserFromStorage = JSON.parse(localUserFromStorage))
+      : (localUserFromStorage = null);
+    setLocalUser(localUserFromStorage);
     axios
       .get(`/api/book/main/?page=${page}&category=${category}&search=${search}`)
       .then((res) => {
@@ -159,7 +166,7 @@ export default function Home() {
           ) : books.length > 0 ? (
             map(books, (book: Book, index: number) => (
               <Grid item xs={12} md={4} key={index}>
-                <BookCard book={book} />
+                <BookCard book={book} user={localUser} />
               </Grid>
             ))
           ) : (
@@ -188,7 +195,7 @@ export default function Home() {
           showLastButton
         />
       </Box>
-      <CartButton />
+      <CartButton user={localUser} />
     </>
   );
 }

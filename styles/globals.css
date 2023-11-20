@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
   margin: 0;
   padding: 0;
@@ -188,13 +192,19 @@ section {
   background-color: #a38579;
   border-radius: 0.5rem;
   padding: 1rem;
-  margin-bottom: 1rem;
+}
+
+.book__story p {
+  line-height: 2rem !important;
+  font-size: 17px !important;
 }
 
 .book__cover {
   object-fit: cover;
-  max-width: 200px;
-  max-height: 400px;
+  max-width: 300px;
+  max-height: 250px;
+  width: 100% !important;
+  height: 100% !important;
   border-radius: 0.5rem;
 }
 
@@ -232,5 +242,10 @@ section {
   }
   .top-45 {
     margin-top: -45px !important;
+  }
+  .responsive__stack {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
   }
 }

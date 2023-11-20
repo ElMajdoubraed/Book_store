@@ -81,6 +81,7 @@ function UserMenu(user: any) {
   }, [user]);
 
   const handleLogout = async () => {
+    localStorage.clear();
     setMenu(null);
     await logout();
     router.reload();

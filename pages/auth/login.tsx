@@ -42,7 +42,8 @@ export default function Login() {
     if (loading) return;
     setLoading(true);
     try {
-      await login({ email, password });
+      const res = await login({ email, password });
+      localStorage.setItem("user", JSON.stringify(res.data));
       router.push("/");
     } catch (e) {
       setHasError(true);

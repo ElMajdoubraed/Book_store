@@ -3,7 +3,7 @@ import { PageLayout } from "@/layouts";
 import { Grid, Stack } from "@mui/material";
 import Head from "next/head";
 import useAuth from "@/hooks/useAuth";
-import { Typography, Button, IconButton } from "@material-ui/core";
+import { Typography, Button, ButtonGroup } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import NotFound from "@/pages/404";
 import { CircularLoading as Loading } from "@/components/loading";
@@ -12,6 +12,10 @@ import { useRouter } from "next/router";
 import { message } from "antd";
 import styled from "styled-components";
 import { DeleteIcon, EditIcon } from "@/components/icons";
+import Image from "next/image";
+import moment from "@/utils/moment";
+import { RestartAlt } from "@mui/icons-material";
+import { Dialog } from "@mui/material";
 
 interface BookDetails {
   _id: string | number | null;
@@ -23,6 +27,7 @@ interface BookDetails {
   };
   author?: string;
   cover?: string;
+  createdAt?: string;
 }
 
 const BookButton = styled(Button)`
@@ -41,6 +46,8 @@ export default function BookPage() {
   });
   const uploadUrl = process.env.NEXT_PUBLIC_S3_UPLOAD_URL;
   const [bookDetails, setBookDetails] = useState<BookDetails>();
+  const [quantity, setQuantity] = useState(1);
+  const [open, setOpen] = React.useState(false);
 
   const handleDelete = () => {
     if (!id) return;
@@ -116,28 +123,6 @@ export default function BookPage() {
           container
           spacing={2}
         >
-          <Grid item xs={9} md={9}>
-            <Typography
-              style={{
-                marginBottom: 40,
-              }}
-              color="primary"
-              variant="h5"
-            >
-              {bookDetails.title}{" "}
-              {user?.role === "admin" && (
-                <React.Fragment>
-                  <IconButton onClick={() => router.push(`/admin/book/${id}`)}>
-                    <EditIcon size={20} fill="#c45e4c" />
-                  </IconButton>
-                  <IconButton onClick={handleDelete}>
-                    <DeleteIcon size={20} fill="#81322a" />
-                  </IconButton>
-                </React.Fragment>
-              )}
-            </Typography>
-          </Grid>
-          <Grid item xs={3} md={3}></Grid>
           <Grid
             item
             sx={{
@@ -146,46 +131,160 @@ export default function BookPage() {
             xs={12}
             md={12}
           >
-            <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+            <Stack
+              className="responsive__stack"
+              direction={{ xs: "column", sm: "row" }}
+              spacing={2}
+            >
               <div className="spacing">
-                <img
-                  className="book__cover"
+                <Image
+                  className="book__cover drop-shadow-md hover:drop-shadow-xl"
                   src={uploadUrl + "/" + bookDetails.cover}
-                  alt={bookDetails.title}
+                  alt={bookDetails.title as string}
+                  width={400}
+                  height={350}
+                  objectFit="cover"
+                  unoptimized={true}
+                  loading="lazy"
+                  onClick={() => setOpen(true)}
                 />
               </div>
               <div>
-                <Typography className="mb-5">
-                  اسم المؤلف: {bookDetails.author}
+                <Typography
+                  className="mb-5 underline decoration-[#81322a]"
+                  color="primary"
+                  variant="h5"
+                >
+                  <span className="font-semibold">{bookDetails.title} </span>{" "}
                 </Typography>
                 <Typography className="mb-5">
-                  التصنيف: {bookDetails.category?.name}
+                  <span className="font-bold"> اسم المؤلف: </span>
+                  {bookDetails.author}
                 </Typography>
                 <Typography className="mb-5">
-                  السعر: {bookDetails.price}
+                  <span className="font-bold"> التصنيف:</span>{" "}
+                  {bookDetails.category?.name}
                 </Typography>
-                <div className="book__story mb-5">
-                  <Typography>{bookDetails.story}</Typography>
-                </div>
+                <Typography className="mb-5">
+                  <span className="font-bold"> السعر:</span> {bookDetails.price}{" "}
+                  $
+                </Typography>
+                <Typography className="mb-5">
+                  <span className="font-bold"> تاريخ النشر:</span>{" "}
+                  {moment(bookDetails.createdAt).fromNow()}
+                </Typography>
               </div>
             </Stack>
           </Grid>
-          <Grid item xs={12} md={6}></Grid>
+          <Grid item xs={12} md={12}>
+            <div className="book__story mb-5">
+              <Typography className="indent-8">{bookDetails.story}</Typography>
+            </div>
+          </Grid>
           <Grid item xs={12} md={6}>
-            {user?.role === "user" && (
-              <BookButton
-                onClick={handleOrder}
-                style={{
-                  marginBottom: 40,
-                }}
-                variant="contained"
+            {user?.role === "admin" && (
+              <Button
                 color="primary"
+                variant="contained"
+                fullWidth
+                startIcon={<EditIcon size={20} fill="#ffffff" />}
+                onClick={() => router.push(`/admin/book/${id}`)}
               >
-                اضافة الى السلة
-              </BookButton>
+                تعديل الكتاب
+              </Button>
+            )}
+            {user?.role === "user" && (
+              <></>
+              /*
+              <Grid item xs={12} className="w-full">
+                <ButtonGroup fullWidth>
+                  <Button
+                    style={{
+                      borderRadius: "0px",
+                      border: "none",
+                    }}
+                  >
+                    الكمية
+                  </Button>
+                  <Button
+                    className="btn-cart"
+                    variant="outlined"
+                    color="secondary"
+                    onClick={() => {
+                      setQuantity((quantity) => quantity + 1);
+                    }}
+                  >
+                    +
+                  </Button>
+                  <Button
+                    className="btn-cart"
+                    style={{
+                      borderRadius: "0px",
+                      border: "none",
+                    }}
+                  >
+                    {quantity}
+                  </Button>
+                  <Button
+                    className="btn-cart"
+                    variant="outlined"
+                    color="secondary"
+                    onClick={() => {
+                      if (quantity > 1) {
+                        setQuantity((quantity) => quantity - 1);
+                      }
+                    }}
+                  >
+                    -
+                  </Button>
+                  <Button
+                    className="btn-cart"
+                    onClick={() => {
+                      setQuantity(1);
+                    }}
+                    startIcon={<RestartAlt />}
+                  ></Button>
+                </ButtonGroup>
+              </Grid>
+               */
+            )}
+          </Grid>
+          <Grid item xs={12} md={6} className="mb-5">
+            {user?.role === "admin" && (
+              <Button
+                variant="outlined"
+                color="secondary"
+                fullWidth
+                startIcon={<DeleteIcon size={20} fill="#81322a" />}
+                onClick={handleDelete}
+              >
+                حذف الكتاب
+              </Button>
+            )}
+            {user?.role === "user" && (
+              <React.Fragment>
+                <BookButton
+                  onClick={handleOrder}
+                  variant="contained"
+                  color="primary"
+                >
+                  اضافة الى السلة
+                </BookButton>
+              </React.Fragment>
             )}
           </Grid>
         </Grid>
+        <Dialog open={open} onClose={() => setOpen(false)}>
+          <img
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+            }}
+            src={uploadUrl + "/" + bookDetails.cover}
+            alt={bookDetails.title as string}
+          />
+        </Dialog>
       </PageLayout>
     </>
   );

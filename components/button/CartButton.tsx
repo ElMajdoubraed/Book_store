@@ -24,7 +24,7 @@ const AnimatedFab = styled(Fab)`
   }
 `;
 
-export default function CartButton() {
+export default function CartButton({ user }: { user: any }) {
   const [orders, setOrders] = useState(0);
   const [fetching, setFetching] = useState(false);
   useEffect(() => {
@@ -37,7 +37,7 @@ export default function CartButton() {
   setTimeout(() => {
     setFetching(!fetching);
   }, 1000);
-  return (
+  return user?.role === "admin" ? null : (
     <AnimatedFab className="fab__button" aria-label="add" href="/~/cart">
       <Badge badgeContent={orders} color="error">
         <ShoppingCart color="primary" />

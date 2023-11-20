@@ -42,10 +42,10 @@ interface BookProps {
 
 export default function BookCard({
   book,
-  forSell = true,
+  user,
 }: {
   book: BookProps;
-  forSell?: boolean;
+  user: any;
 }) {
   const [expanded, setExpanded] = React.useState(false);
   const [open, setOpen] = React.useState(false);
@@ -131,7 +131,7 @@ export default function BookCard({
           </Typography>
         </CardContent>
       </Collapse>
-      {forSell && (
+      {user?.role !== "admin" ? (
         <Button
           onClick={() => addToCart(book)}
           style={{
@@ -144,6 +144,20 @@ export default function BookCard({
           color="secondary"
         >
           أضف الى السلة
+        </Button>
+      ) : (
+        <Button
+          onClick={() => (window.location.href = `/admin/book/${book._id}`)}
+          style={{
+            width: "100%",
+            borderRadius: "0",
+            padding: "0.75rem",
+          }}
+          className="zoom-in"
+          variant="contained"
+          color="secondary"
+        >
+          تعديل الكتاب
         </Button>
       )}
       <Dialog open={open} onClose={() => setOpen(false)}>

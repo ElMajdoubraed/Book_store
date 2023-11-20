@@ -21,7 +21,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       httpOnly: true,
       maxAge: 60 * 60 * 24 * 7,
     });
-    res.status(200).json({});
+    user.password = undefined;
+    delete user.password;
+    res.status(200).json(user);
   } catch (error) {
     res.status(400).json({
       success: false,
